@@ -8,10 +8,11 @@ Find the following results via the SQL COUNT function：
 |53210 | 74595  | 50000 |
 |41324 | 53210  | 49995 |
 
-And, Thers are 8 records at viewCount = 41324.
+And, There are 8 records at viewCount = 41324.
 
-Acquire the top 200,000 posts by SQL in `acquire_data.sql`. 
-Save data as these files: `1-6.csv`, `2-49995`, `3-50000`, `4-50000`, `5-49999`.
+Acquire the top 200,000 posts by SQL in [`acquire_data.sql`.](./acquire_data.sql) 
+Save data as these files in [data](./data) folder: `1-6.csv`, `2-49995.csv`, `3-50000.csv`, `4-50000.csv`, `5-49999.csv`.
+
 ``` SQL
 select Id, PostTypeId, AcceptedAnswerId, ParentId,
 CreationDate, DeletionDate,Score, ViewCount,
@@ -27,7 +28,7 @@ order by posts.ViewCount
 
 ## 2. Load data into Hive
 
-After creating table, load data (200000) into hive (`load_data_into_hive.sql`)
+After creating table, load data (200000) into hive ([`load_data_into_hive.sql`](./load_data_into_hive.sql))
 ``` SQL
 load data local inpath 'XXXXX.csv' into table posts;
 ```
@@ -86,8 +87,7 @@ Hive is used for this task, because I don't need to write a lot of code, only ne
 10 rows selected (7.349 seconds)
 ```
 
-3.3 The number of distinct users, who used the word “cloud” in one of their 
-posts 
+3.3 The number of distinct users, who used the word “cloud” in one of their  posts 
 
 ```shell
 0: jdbc:hive2://localhost:10000> select count(distinct owneruserid) from posts where instr(body, "cloud")>0;
@@ -102,8 +102,9 @@ posts
 ## 4. Calculate TF-IDF
 Hive is used for this task, because you don't need to write a lot of code, you only need to write SQL.
 
-The SQL of this task is `calculate_tfidf.sql`. Here are some results.
-All the results are in `task4_result.txt`
+The SQL of this task is [`calculate_tfidf.sql`](./calculate_tfidf.sql). Here are some results.
+All the results are in [`task4_result.txt`](./task4_result.txt)
+
 |uid|docid|word|tfidf|
 |---|-----|----|-----|
 |105565|4912092|feedback|0.230443307312851|
@@ -116,3 +117,4 @@ All the results are in `task4_result.txt`
 |105565|4912092|com/feedback/api|0.07591602121605208|
 |105565|4912092|tool&quot|0.07228915393352509|
 |105565|4912092|nofollow|0.06878670065295439|
+
